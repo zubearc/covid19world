@@ -2,9 +2,11 @@ import os
 
 with open('../coronavirus-data/trends/cases-by-day.csv', 'r') as f:
     cases_lines = f.readlines()
+    cases_lines.pop(0)
 
 with open('../coronavirus-data/trends/deaths-by-day.csv', 'r') as f:
     deaths_lines = f.readlines()
+    cases_lines.pop(0)
 
 # print(lines)
 
@@ -14,12 +16,15 @@ days = {}
 
 for line in cases_lines:
     date_of_interest,CASE_COUNT,PROBABLE_CASE_COUNT,CASE_COUNT_7DAY_AVG,ALL_CASE_COUNT_7DAY_AVG,BX_CASE_COUNT,BX_PROBABLE_CASE_COUNT,BX_CASE_COUNT_7DAY_AVG,BX_ALL_CASE_COUNT_7DAY_AVG,BK_CASE_COUNT,BK_PROBABLE_CASE_COUNT,BK_CASE_COUNT_7DAY_AVG,BK_ALL_CASE_COUNT_7DAY_AVG,MN_CASE_COUNT,MN_PROBABLE_CASE_COUNT,MN_CASE_COUNT_7DAY_AVG,MN_ALL_CASE_COUNT_7DAY_AVG,QN_CASE_COUNT,QN_PROBABLE_CASE_COUNT,QN_CASE_COUNT_7DAY_AVG,QN_ALL_CASE_COUNT_7DAY_AVG,SI_CASE_COUNT,SI_PROBABLE_CASE_COUNT,SI_CASE_COUNT_7DAY_AVG,SI_ALL_CASE_COUNT_7DAY_AVG,INCOMPLETE=line.split(',')
-    day = date_of_interest.replace('/','-')
+    # print(date_of_interest)
+    m,d,y = date_of_interest.split('/')
+    day = y + '-' + m + '-' + d
     days[day] = [line]
 
 for line in cases_lines:
     date_of_interest,DEATH_COUNT,PROBABLE_DEATH_COUNT,DEATH_COUNT_7DAY_AVG,ALL_DEATH_COUNT_7DAY_AVG,BX_DEATH_COUNT,BX_PROBABLE_DEATH_COUNT,BX_DEATH_COUNT_7DAY_AVG,BX_ALL_DEATH_COUNT_7DAY_AVG,BK_DEATH_COUNT,BK_PROBABLE_DEATH_COUNT,BK_DEATH_COUNT_7DAY_AVG,BK_ALL_DEATH_COUNT_7DAY_AVG,MN_DEATH_COUNT,MN_PROBABLE_DEATH_COUNT,MN_DEATH_COUNT_7DAY_AVG,MN_ALL_DEATH_COUNT_7DAY_AVG,QN_DEATH_COUNT,QN_PROBABLE_DEATH_COUNT,QN_DEATH_COUNT_7DAY_AVG,QN_ALL_DEATH_COUNT_7DAY_AVG,SI_DEATH_COUNT,SI_PROBABLE_DEATH_COUNT,SI_DEATH_COUNT_7DAY_AVG,SI_ALL_DEATH_COUNT_7DAY_AVG,INCOMPLETE=line.split(',')
-    day = date_of_interest.replace('/','-')
+    m,d,y = date_of_interest.split('/')
+    day = y + '-' + m + '-' + d
     days[day].append(line)
 
 # print days
