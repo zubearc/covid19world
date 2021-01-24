@@ -1,0 +1,84 @@
+<style>
+    .g-disabled {
+        color: gray;
+        font-weight: normal;
+    }
+
+    .g-enabled {
+        color: white;
+    }
+
+    .g-ct {
+        /* text-align: center; */
+        /* float: right; */
+        padding-top: 4px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .g-h1 {
+        color: light gray;
+        text-align: center;
+        font-size: 18px;
+        padding-top: 16px;
+        padding-bottom: 8px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .gcs {
+        cursor: pointer;
+    }
+
+    .g-btn {
+        background-color: #505050;color:#d0d0d0; border-radius: 20px;padding:8px;
+    }
+
+    .g-btn:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+
+    #top-countries div[onclick]:hover {
+        background-color: black !important;
+        color: white !important;
+        cursor: pointer;
+    }
+
+    .scale-box {
+        background: linear-gradient(to right, #003f5c, #006987, #009596, #00c084, #73e557, #f6ff00, red); /* Standard syntax (must be last) */
+        width: 100%;
+        height: 30px;
+    }
+</style>
+
+<div>
+    <div class='g-h1'>
+        <span class='g-enabled'>Top countries</span> 
+        <!-- <span>&mdash;</span> <span class='g-disabled'>Charts</span> -->
+    </div>
+
+    <div style='padding-top:8px;padding-bottom: 18px;'>
+        <span id='gcs-cases' onclick='global.onSelectCountryStatsMode("cases")' class='gcs g-enabled'>confirmed cases</span> &mdash;
+        <span id='gcs-deaths' onclick='global.onSelectCountryStatsMode("deaths")' class='gcs g-disabled'>deaths</span> &mdash; 
+        <span id='gcs-recovieries' onclick='global.onSelectCountryStatsMode("recovieries")' class='gcs g-disabled'>recoveries</span></div>
+
+    <div id='top-countries'>
+        <!-- <div style='background-color: darkgreen;color: white;padding: 8px;font-weight: bold;text-align: left;'>
+            <span>China</span>
+            <span style='float:right;'>1,000,000</span>
+        </div>
+        <div style='background-color: darkgreen;color: white;padding: 8px;font-weight: bold;text-align: left;'>
+            United States
+        </div> -->
+    </div>
+
+    <div>
+        <p>Map scale &mdash; Cases per 1 million</p>
+
+        <div class='scale'>
+            <span style='float:right;color:black;padding:4px;'>40,000+</span>
+            <span style='float:left;color:white;padding:4px;'>2</span>
+            <div class='scale-box'></div>    
+        </div>
+    </div>
+</div>
