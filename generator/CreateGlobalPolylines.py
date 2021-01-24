@@ -12,12 +12,12 @@ for feature in j['features']:
     code = props['ISO_A3']
     coords = feature['geometry']['coordinates']
 
-    print props['ADMIN'], code
+    print(props['ADMIN'], code)
 
     try:
         fipsc = GlobalCodes.Iso3toIso2[code]
     except Exception:
-        print 'Failed', code
+        print('Failed', code)
         continue
 
     epolys = []

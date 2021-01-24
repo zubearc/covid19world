@@ -142,7 +142,7 @@ for s in r1:
         try:
             x = tsDays[i - 4]
         except Exception:
-            print s, i, tsDays
+            print(s, i, tsDays)
             # continue
             raise ''
         if x not in tsDeaths:
