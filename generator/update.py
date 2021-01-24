@@ -12,7 +12,10 @@ def system(cmd):
 print("Updating git submodules...")
 # https://stackoverflow.com/a/9103113/11173996
 # does this work? To be tested
-system('git submodule -q foreach git pull -q origin master')
+# os.system('dir')
+# this breaks ci, and it's not needed there so dont run it if in CI
+if 'CI' not in os.environ:
+    system('git submodule -q foreach git pull -q origin master')
 
 system('cd nyc && python fixNytData.py')
 
