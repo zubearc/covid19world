@@ -1,0 +1,161 @@
+<style>
+    .barmode {
+        color: gray;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    .g-enabled {
+        color: black;
+        font-weight: bold;
+    }
+
+    .g-ct {
+        /* text-align: center; */
+        /* float: right; */
+        padding-top: 4px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .g-h1 {
+        color: light gray;
+        text-align: center;
+        font-size: 18px;
+        padding-top: 16px;
+        padding-bottom: 8px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .gcs {
+        cursor: pointer;
+    }
+
+    .g-btn {
+        background-color: #505050;color:#d0d0d0; border-radius: 20px;padding:8px;
+    }
+
+    .g-btn:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+
+    #top-zips div:hover {
+        background-color: black !important;
+        color: white !important;
+        cursor: pointer;
+    }
+    
+    #nyc-tops{
+        /* display: none; */
+    }
+    #nyc-charts {
+        display: none;
+    }
+
+    .scale-box {
+        background: linear-gradient(to right, #fded86, #fce36b, #f7c65d, #f1a84f, #ec8c41, #e76f34, #e25328, #b04829, #7e3e2b, #4c3430, #300000); /* Standard syntax (must be last) */
+        width: 100%;
+        height: 30px;
+    }
+
+    .x-recover {
+        display: none;
+    }
+
+</style>
+
+<div style='background-color: pink;color: black;padding: 8px;font-weight: bold;text-align: center;'>
+    <span style='font-size: x-large;' id='stat-assumed'>...</span>
+    <span> unconfirmed deaths</span>
+</div>
+
+<div style='background-color: skyblue;color: black;padding: 8px;font-weight: bold;text-align: center;'>
+    <span style='font-size: x-large;' id='stat-hosp'>...</span>
+    <span> hospitalizations</span>
+</div>
+
+<div class='g-h1'>
+    <span id='g-top-what' onclick="nyc.onShowTops();" class='barmode g-enabled'>Top neighborhoods</span>
+    <!-- <span>&mdash;</span> <span class='g-disabled'>All states</span> -->
+    <span>&mdash;</span> <span id='g-charts' onclick='nyc.onShowCharts();' class='barmode'>Charts</span>
+</div>
+
+<div id='nyc-charts'>
+    <h3 style='text-align: center;'>Rates by borough</h3>
+
+    <div style='text-align: center;'><em>(Cases per 100,000)</em></div>
+
+    <canvas id="canvas" width="400" height="300"></canvas>
+
+    <h3 style='text-align: center;'>Daily new cases</h3>
+
+    <!-- <div style='text-align: center;'><em>(Tap on a category to highlight)</em></div> -->
+
+    <div style='height: 30px;'>
+        <div style='position: absolute; left: 2vw;display: inline-flex;'>
+            <div class='button-arrow' onclick='nycChartDodBack()'>&lt;</div>
+            <div class='button-arrow' onclick='nycChartDodZoomOut()'>-</div>
+            <div class='button-arrow' onclick='nycChartDodZoomIn()'>+</div>
+            <div style="padding: 4px;margin-right:8px;font-style: italic;">(Tap category to highlight)</div>
+        </div>
+        <div style='position: absolute; right: 2vw;display: inline-flex;'>
+            <div class="button-arrow" onclick='nycChartDodNext()'>&gt;</div>
+        </div>
+    </div>
+
+    <canvas id="canvas2" width="400" height="400"></canvas>
+
+    <h3 style='text-align: center;'>Sex distributions</h3>
+
+    <div style='padding:8px;'>Deaths</div>
+    <div id='sd-death' style='display: inline-flex; width: 100%;color:white;font-weight: bold;'>
+        <div class='male' style='display: inline-block;width:62.7%;background-color:dodgerblue;text-align: center;'>
+            <div style='padding:6px;'>Male</div>
+            <div class='value' style='font-size: x-large;padding-bottom:6px;'>62.7%</div>
+        </div>
+        <div class='female' style='display: inline-block;width:37.3%;background-color:mediumslateblue;text-align: center;'>
+            <div style='padding:6px;'>Female</div>
+            <div class='value' style='font-size: x-large;padding-bottom:6px;'>37.3%</div>
+        </div>
+    </div>
+    <div style='padding:8px;'>Hospitalizations</div>
+    <div id='sd-hosp' style='display: inline-flex; width: 100%;color:white;font-weight: bold;'>
+        <div class='male' style='display: inline-block;width:62.7%;background-color:dodgerblue;text-align: center;'>
+            <div style='padding:6px;'>Male</div>
+            <div class='value' style='font-size: x-large;padding-bottom:6px;'>62.7%</div>
+        </div>
+        <div class='female' style='display: inline-block;width:37.3%;background-color:mediumslateblue;text-align: center;'>
+            <div style='padding:6px;'>Female</div>
+            <div class='value' style='font-size: x-large;padding-bottom:6px;'>37.3%</div>
+        </div>
+    </div>
+</div>
+
+<div id='nyc-tops'>
+    <div style='padding-top:8px;padding-bottom: 18px;'>
+        <span id='gcs-cases' onclick='nyc.onSelectStatsMode("cases")' class='gcs g-enabled'>confirmed cases</span>
+        &mdash; <span id='gcs-deaths' onclick='nyc.onSelectStatsMode("deaths")' class='gcs g-disabled'>deaths</span>
+        <!-- &mdash; <span id='gcs-recovieries' onclick='usa.onSelectStatsMode("recovieries")' class='gcs g-disabled'>recoveries</span> -->
+    </div>
+
+    <div id='top-zips'>
+        <!-- <div style='background-color: darkgreen;color: white;padding: 8px;font-weight: bold;text-align: left;'>
+            <span>China</span>
+            <span style='float:right;'>1,000,000</span>
+        </div>
+        <div style='background-color: darkgreen;color: white;padding: 8px;font-weight: bold;text-align: left;'>
+            United States
+        </div> -->
+    </div>
+</div>
+
+<div>
+    <p>Map scale &mdash; Cases per 350</p>
+    <span style='float:right;color:white;padding:4px;'>10+</span>
+    <span style='float:left;color:black;padding:4px;'>1</span>
+    <div class='scale-box'></div>
+</div>
+
+<p><a href="https://www1.nyc.gov/site/doh/covid/covid-19-data.page" style='text-align: center;'><em>Source - NYC
+    Dept. of Health</em></a></p>
