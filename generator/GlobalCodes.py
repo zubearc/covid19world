@@ -60,7 +60,7 @@ with open('global/global-country-code-map.tsv', 'r') as f:
             countryNameToIso3[name] = iso3
             Iso3toIso2[iso3] = iso2
             if '(' in name:
-                print name
+                # print name
                 _namef = _t.title() + ' ' + name
                 Iso2ToName[iso2] = _namef
             else:
@@ -87,7 +87,7 @@ with open('global/global-population-worldbank.csv', 'r') as f:
 
 # assert countryNameToIso2['China'] == 'CN'
 
-print json.dumps(Iso2ToName)
+# print(json.dumps(Iso2ToName))
 
 iso2p = {}
 for iso3cc in countryPopulationsIso3:
@@ -99,4 +99,4 @@ for iso3cc in countryPopulationsIso3:
     except Exception:
         print 'fail', iso3cc
 
-print json.dumps(iso2p)
+# print(json.dumps(iso2p))
