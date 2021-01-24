@@ -1,1 +1,5 @@
+node_modules
+lib
 *.pyc
+package-lock.json
+package.json

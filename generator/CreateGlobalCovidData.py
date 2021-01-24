@@ -118,7 +118,7 @@ for s in r1:
             _pop = countryPopulationsIso3[iso3]
             pop = int(_pop)
         except Exception:
-            print 'No pop for', Country_Region, iso3
+            print('No pop for', Country_Region, iso3)
             pop = 1
 
         per100k = math.ceil(((float(newval) / float(pop)) * 1000000) * 100)
@@ -174,7 +174,7 @@ for s in r1:
             _pop = countryPopulationsIso3[iso3]
             pop = int(_pop)
         except Exception:
-            print 'No pop for', Country_Region, iso3
+            print('No pop for', Country_Region, iso3)
             pop = 1
 
         per100k = math.ceil(((float(newval) / float(pop)) * 1000000) * 100)
@@ -221,7 +221,7 @@ for s in r1:
             _pop = countryPopulationsIso3[iso3]
             pop = int(_pop)
         except Exception:
-            print 'No pop for', Country_Region, iso3
+            print('No pop for', Country_Region, iso3)
             pop = 1
 
         per100k = math.ceil(((float(newval) / float(pop)) * 1000000) * 100)
