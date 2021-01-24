@@ -11,6 +11,7 @@ Sources:
 * https://github.com/nychealth/coronavirus-data
 * https://github.com/nytimes/covid-19-data
 * https://github.com/datasets/population - world population data (generator/global)
+* https://gist.github.com/signed0/2031157 - (generator/Polylines.py)
 * Wikipedia - geojson polygons
 
 Open in GitPod: https://gitpod.io/https://github.com/zubearc/covid19world
