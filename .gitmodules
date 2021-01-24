@@ -1,0 +1,9 @@
+[submodule "generator/COVID-19"]
+	path = generator/COVID-19
+	url = https://github.com/CSSEGISandData/COVID-19.git
+[submodule "generator/covid-19-data"]
+	path = generator/covid-19-data
+	url = https://github.com/nytimes/covid-19-data.git
+[submodule "generator/coronavirus-data"]
+	path = generator/coronavirus-data
+	url = https://github.com/nychealth/coronavirus-data.git
