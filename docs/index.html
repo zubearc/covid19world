@@ -1,0 +1,268 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Covid-19 Timeline</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.timeline@1.3.0/dist/leaflet.timeline.min.js"></script>
+  <link rel="stylesheet"
+    href="https://rawcdn.githack.com/Leaflet/Leaflet.label/0a4e3a6422c9e5a799a9cde106de5bcfdb5ab741/dist/leaflet.label.css">
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #262626;
+      color: white;
+    }
+
+    #mobile-map-toggle-btn {
+      display: none;
+      background-color: white;
+      color: black;
+      border-radius: 20px;
+      padding: 8px;
+      right: 8vw;
+      top: 2px;
+      margin: 18px;
+    }
+
+
+    #info {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 24vw;
+      overflow: scroll;
+      text-align: center;
+    }
+
+    .info-container {
+      padding: 1em;
+    }
+
+    #info::-webkit-scrollbar {
+      display: none;
+    }
+
+    #map {
+      position: fixed;
+      top: 0;
+      left: 24vw;
+      bottom: 0;
+      right: 0;
+    }
+
+    #header-text {
+      font-size: 20px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .mobile {
+      display: none !important;
+    }
+
+    #super-text {
+      display: none;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 20px;
+      font-size: 20px;
+      text-align: center;
+      z-index: 1;
+    }
+
+    #super-text span {
+      color: white;
+      background-color: rgb(85, 84, 84);
+    }
+
+    @media only screen and (max-device-width : 1500px) {
+      .info-container {
+        padding: 0.5em;
+      }
+    }
+
+    @media only screen and (max-device-width : 1000px) {
+      #info {
+        width: 100%;
+        background-color: black;
+        z-index: 2;
+        padding: 0;
+      }
+
+      .info-container {
+        padding: 0.6em;
+      }
+
+      #mobile-map-toggle-btn {
+        display: block;
+      }
+
+      #map {
+        left: 0;
+      }
+
+      .mobile {
+        display: block !important;
+      }
+
+      #super-text {
+        display: block;
+      }
+    }
+
+    .leaflet-bottom.leaflet-left {
+      width: 100%;
+    }
+
+    .leaflet-control-container .leaflet-timeline-controls {
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 15px;
+    }
+
+    .sd {
+      color: red;
+    }
+
+    .place {
+      /* background: red; */
+      color: white;
+      width: max-content;
+      padding-left: 8px;
+      padding-right: 8px;
+      /* width: 250px;
+				height:250px; */
+    }
+
+    a {
+      color: dodgerblue;
+    }
+  </style>
+  <style>
+    .button-arrow {
+      background-color: darkgray;
+      color: white;
+      border-radius: 20px;
+      padding: 4px;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-right: 8px;
+      height: 18px;
+      box-shadow: 0 0 8px darkgrey;
+    }
+
+    .button-arrow:hover {
+      background-color: black;
+      cursor: pointer;
+    }
+
+    .disabled {
+      background-color: #d4dde0;
+      box-shadow: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id='loading-warning'
+    style='display:none;z-index:100;font-family: Verdana, Geneva, Tahoma, sans-serif; position:fixed;top:25%;left:0; text-align: center;background-color:darkslategray;color:white;padding-left:10%;padding-right:10%;'>
+    <div>
+      <h3>Please wait! 😴</h3>
+      <p>Loading alot of data, this will take a bit.</p>
+
+      <br>
+
+      <p>If you see this for longer than a minute, close the page and try opening the timelapse on a different
+        device. The timelapse loads alot of data, so some older devices may not be able to load all of it and
+        freeze the page.</p>
+    </div>
+  </div>
+
+  <div id='super-text'>
+    <span class='g-ct'></span>
+  </div>
+
+  <div id="info">
+    <div class='info-container'>
+      <div id='back-text' style='margin-bottom:8px;color:dodgerblue;cursor: pointer;' onclick="active.onPressBack()">
+        &larr; Worldwide</div>
+
+      <span id='mobile-map-toggle-btn'>Back
+        to map &rarr;</span>
+
+      <div id='header-text'>Covid-19 Worldwide</div>
+
+      <div id='header-date'>
+        <p>Loading...</p>
+        <!-- <p>If this message doesn't go away, refresh the page, make sure you have internet connection and that JavaScript is enabled in your browser.</p> -->
+      </div>
+
+      <div class='x-cases'
+        style='background-color: purple;color: white;padding: 8px;font-weight: bold;text-align: center;'>
+        <span style='font-size: x-large;' id='stat-positives'>...</span>
+        <span> positive cases</span>
+      </div>
+      <div class='x-deaths'
+        style='background-color: darkred;color: white;padding: 8px;font-weight: bold;text-align: center;'>
+        <span style='font-size: x-large;' id='stat-deaths'>...</span>
+        <span> deaths</span>
+      </div>
+      <div class='x-recover'
+        style='background-color: darkgreen;color: white;padding: 8px;font-weight: bold;text-align: center;'>
+        <span style='font-size: x-large;' id='stat-recoveries'>...</span>
+        <span> recoveries</span>
+      </div>
+
+      <div id='info-area'>
+        <p>Loading...</p>
+        <p>If this message doesn't go away, refresh the page, make sure you have internet connection and that
+          JavaScript is enabled in your browser.</p>
+      </div>
+
+
+      <!-- <h2>Over the Last 24 Hours</h2> -->
+      <!-- <h3>Currently displayed</h3> -->
+
+      <p></p>
+
+      <div><a href="about.html">About</a> &mdash; <a href="https://github.com/zubearc/covid19world">Report an issue</a>
+        &mdash; <a href="sources.html">Sources</a> </div>
+    </div>
+
+  </div>
+  <div id="map"></div>
+
+  <script src="https://realtimenyc-staging.netlify.app/transitmaps/shared.js"></script>
+  <script src="leaflet-label.js"></script>
+  <!-- <script src="timeline.js"></script> -->
+  <script src="layers.js"></script>
+  <!-- <script src="http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojsonp"></script> -->
+  <!-- <script src="lapser.js"></script> -->
+  <script src="polygon_encoded.js"></script>
+  <script src="leaflet-helpers.js"></script>
+  <!-- <script src="countylayer.js"></script> -->
+  <!-- <script src="leaflet-gliphy.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"
+    integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
+  <script src="global2.js"></script>
+  <script src="usa2.js"></script>
+  <script src="usa-nyc2.js"></script>
+  <script src="usa-charts.js"></script>
+  <script src="nyc-charts.js"></script>
+
+  <script src="welcome.js?5"></script>
+</body>
+
+</html>
