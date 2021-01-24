@@ -5,3 +5,12 @@ The purpose of this project is to build a consolidated global map and timeline f
 Disclaimers:
 * The map polygon data is from Wikipedia and the John Hopkins data parser was based off of existing code. For this project, we will expand on this data parser to work with US data and if time permits, New York City data.
 * The authors make no claims toward the validity or completeness of the data. 
+
+Sources:
+* https://github.com/CSSEGISandData/COVID-19
+* https://github.com/nychealth/coronavirus-data
+* https://github.com/nytimes/covid-19-data
+* https://github.com/datasets/population - world population data (generator/global)
+* Wikipedia - geojson polygons
+
+Open in GitPod: https://gitpod.io/https://github.com/zubearc/covid19world
