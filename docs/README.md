@@ -7,11 +7,12 @@ Disclaimers:
 * The authors make no claims toward the validity or completeness of the data. 
 
 Sources:
-* https://github.com/CSSEGISandData/COVID-19
-* https://github.com/nychealth/coronavirus-data
-* https://github.com/nytimes/covid-19-data
+* https://github.com/CSSEGISandData/COVID-19 - (generator/COVID-19)
+* https://github.com/nychealth/coronavirus-data - (generator/coronavirus-data)
+* https://github.com/nytimes/covid-19-data - (generator/covid-19-data)
 * https://github.com/datasets/population - world population data (generator/global)
 * https://gist.github.com/signed0/2031157 - (generator/Polylines.py)
+* https://gist.github.com/zubearc/ef821948a47f8637de858b1ac6dff777 - jhu transformer (generator/CreateGlobalCovidData)
 * Wikipedia - geojson polygons
 
 Open in GitPod: https://gitpod.io/https://github.com/zubearc/covid19world
