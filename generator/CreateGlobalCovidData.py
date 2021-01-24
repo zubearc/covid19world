@@ -296,3 +296,5 @@ for day in tsDays:
 with open('../docs/data/global/country-daily.json', 'w') as f:
     # f.write(json.dumps(tsData))
     f.write(json.dumps({ 'daily': reformatted, 'days': tsDays }))
+
+print("[Global] created data")

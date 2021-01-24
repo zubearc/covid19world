@@ -44,3 +44,5 @@ for o in out:
 
 with open('../USA-Counties-NYT-Extra.csv', 'w') as f:
     f.write(s)
+
+print("Fixed NYC NYTimes data!")

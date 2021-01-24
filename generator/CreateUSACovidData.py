@@ -10,7 +10,7 @@ states = {}
 stateCodes = {}
 stateNames = {}
 
-with open('counties.json', 'r') as f:
+with open('../docs/data/usa/counties.json', 'r') as f:
     counties = json.loads(f.read())
 
 # @Dragon946470 - where did you get this data? 
@@ -477,4 +477,4 @@ with open('../docs/data/usa/covid19-nyc-allcases.json', 'w') as f:
 with open('../docs/data/usa/covid19-nyc-daily.json', 'w') as f:
     f.write(json.dumps({ 'daily': nycDaily, 'totals': nycTotals, 'boro': nycBoroRates, 'sex': nycSexData }))
 
-print(ml)
+print("[USA] created data", ml)
