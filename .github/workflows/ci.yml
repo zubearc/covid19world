@@ -22,5 +22,5 @@ jobs:
     - name: Open generator folder
       run: cd generator && ls -R
     - name: Run updator
-      run: python3 update.py
+      run: cd generator && python3 update.py
     # TODO: Get this to auto-update the repo
