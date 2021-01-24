@@ -13,6 +13,6 @@ Sources:
 * https://github.com/datasets/population - world population data (generator/global)
 * https://gist.github.com/signed0/2031157 - (generator/Polylines.py)
 * https://gist.github.com/zubearc/ef821948a47f8637de858b1ac6dff777 - jhu transformer (generator/CreateGlobalCovidData)
-* Wikipedia - geojson polygons
+* Wikipedia - geojson polygons - (generator/global)
 
 Open in GitPod: https://gitpod.io/https://github.com/zubearc/covid19world
