@@ -93,10 +93,10 @@ iso2p = {}
 for iso3cc in countryPopulationsIso3:
     try:
         d = countryPopulationsIso3[iso3cc]
-        print d
+        print(d)
         iso2 = Iso3toIso2[iso3cc]
         iso2p[iso2] = int(d)
     except Exception:
-        print 'fail', iso3cc
+        print('fail', iso3cc)
 
 # print(json.dumps(iso2p))
