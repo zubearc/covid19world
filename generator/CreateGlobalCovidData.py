@@ -16,7 +16,9 @@ with open('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_cov
         time_series_covid19_confirmed_US = g.readlines()
         for line in time_series_covid19_confirmed_US:
             if 'Puerto Rico' in line:
-                time_series_covid19_confirmed_global.append(',Puerto Rico,' + line.split('US,')[1].replace('"Puerto Rico, US",', ''))
+                print(line)
+                t = line.split('US",')[1]
+                time_series_covid19_confirmed_global.append(',Puerto Rico,18.180117000000006,-66.754367,' + t)
                 # print '->',time_series_covid19_confirmed_global[-1]
                 # raise time_series_covid19_confirmed_global[-1]
                 # exit()
@@ -34,8 +36,11 @@ with open('COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_cov
         time_series_covid19_deaths_US = g.readlines()
         for line in time_series_covid19_deaths_US:
             if 'Puerto Rico' in line:
-                time_series_covid19_deaths_global.append(',Puerto Rico,' + line.split('US,')[1].replace('"Puerto Rico, US",2933408,', '').replace('.0,', ''))
-                print time_series_covid19_deaths_global[-1]
+                t= line.split('US",')[1]
+                t = ','.join(t.split(',')[1:]) # erase pop
+                time_series_covid19_deaths_global.append(',Puerto Rico,18.180117000000006,-66.754367,' + t)
+                # time_series_covid19_deaths_global.append(',Puerto Rico,' + line.split('US,')[1].replace('"Puerto Rico, US",2933408,', '').replace('.0,', ''))
+                # print time_series_covid19_deaths_global[-1]
 
     fl = time_series_covid19_deaths_global.pop(0)
     s = fl.strip().split(',')
@@ -92,8 +97,12 @@ for s in r1:
         #     print iso2, iso3
 
         tsConfirmed[x][iso2] = s[i]
-
-        value = int(s[i])
+        # print(i,s)
+        try:
+            value = int(s[i])
+        except Exception:
+            print(i,s)
+            raise Error()
 
         if x not in tsData:
             tsData[x] = {}
@@ -128,8 +137,14 @@ for s in r1:
     # print s
 
     for i in range(4, len(s)):
-        # print s[i]
-        x = tsDays[i - 4]
+        # print tsDays
+
+        try:
+            x = tsDays[i - 4]
+        except Exception:
+            print s, i, tsDays
+            # continue
+            raise ''
         if x not in tsDeaths:
             tsDeaths[x] = {}
         
@@ -278,6 +293,6 @@ for day in tsDays:
     dfd = tsData[day]
     reformatted.append(dfd)
 
-with open('../data/global/country-daily.json', 'w') as f:
+with open('../docs/data/global/country-daily.json', 'w') as f:
     # f.write(json.dumps(tsData))
     f.write(json.dumps({ 'daily': reformatted, 'days': tsDays }))
